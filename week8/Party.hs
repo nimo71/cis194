@@ -35,13 +35,12 @@ treeFold f z (Node tag children) = f tag $ map (treeFold f z) children
 
 nextLevel :: Employee -> [(GuestList, GuestList)] -> (GuestList, GuestList)
 nextLevel boss bestLists = (newWithBoss, newWithoutBoss)
-  where prevWithBoss = map fst bestLists
-        prevWithoutBoss = map (uncurry moreFun) bestLists
+  where prevWithoutBoss = map snd bestLists
         newWithBoss = glCons boss $ mconcat prevWithoutBoss
-        newWithoutBoss = mconcat prevWithBoss
+        prevMoreFun = map (uncurry moreFun) bestLists
+        newWithoutBoss = mconcat prevMoreFun
 
 
-        
 ---------------------------------------------------------------
 -- Exercise 4
 ---------------------------------------------------------------
